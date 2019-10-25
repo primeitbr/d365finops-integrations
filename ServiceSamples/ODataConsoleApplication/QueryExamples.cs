@@ -10,6 +10,14 @@ namespace ODataConsoleApplication
 {
     public static class QueryExamples
     {
+        public static void ReadVendors(Resources d365)
+        {
+            foreach (var vendor in d365.Vendors.AsEnumerable()) // Get all vendors
+            {
+                Console.WriteLine("Name: {0} CNPJ/CPF: {1}", vendor.VendorName, vendor.BrazilianCNPJOrCPF);
+            }
+        }
+
         public static void ReadLegalEntities(Resources d365)
         {            
             foreach (var legalEntity in d365.LegalEntities.AsEnumerable())
