@@ -10,6 +10,28 @@ namespace ODataConsoleApplication
 {
     class ODataChangesetsExample
     {
+        public static void CreateVendorInSigleChangeset(Resources context)
+        {
+            string vendorId = "VEND00001";
+            try
+            {
+                Vendor vendor = new Vendor();
+                DataServiceCollection<Vendor> salesOrderCollection = new DataServiceCollection<Vendor>(context);
+                salesOrderCollection.Add(vendor);
+
+                vendor.VendorAccountNumber = vendorId;
+                vendor.VendorGroupId = "VENDGROUP01";
+                vendor.VendorPartyType = "Organization";
+                vendor.VendorName = "Name of the vendor";
+
+                context.SaveChanges(SaveChangesOptions.PostOnlySetProperties | SaveChangesOptions.BatchWithSingleChangeset); // Batch with Single Changeset ensure the saved changed runs in all-or-nothing mode.
+                Console.WriteLine(string.Format("Vendor {0} - Saved !", vendorId));
+            }
+            catch (DataServiceRequestException e)
+            {
+                Console.WriteLine(string.Format("Vendor {0} - Save Failed !", vendorId));
+            }
+        }
         public static void CreateSalesOrderInSingleChangeset(Resources context)
         {
             string salesOrderNumber = "100005";
