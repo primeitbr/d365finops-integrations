@@ -199,3 +199,4 @@ ModelManifest.xml
 /FileBasedIntegrationSamples/ConsoleAppSamples/DataPackageHandler/packages
 /.vs
 /ServiceSamples/.vs/ServiceSamples/v16/Server/sqlite3
+/DIXFSamples/.vs/DIXFSamplesSolution/v16/Server/sqlite3
