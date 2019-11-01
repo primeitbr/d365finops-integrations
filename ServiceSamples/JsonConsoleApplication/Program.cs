@@ -18,10 +18,15 @@ namespace OAuthXppConsoleApplication
         
         static void Main(string[] args)
         {
-            string GetUserSessionOperationPath = string.Format("{0}{1}", ClientConfiguration.Default.UriString.TrimEnd('/'), sessionUrl);
-            
-            var request = HttpWebRequest.Create(GetUserSessionOperationPath);     
-            // If you call GetAuthenticationHeader with true you will the auth via AAD Web App, otherwise via Native AAD App
+            /* When making service requets to Sandbox or Prod AX environemnts it must be ensured that TLS version is 1.2
+             * .NET 4.5 supports TLS 1.2 but it is not the default protocol. The below statement can set TLS version explicity.
+             * Note that this statement may not work in .NET 4.0, 3.0 or below.
+             * Also note that in .NET 4.6 and above TLS 1.2 is the default protocol.
+             */
+
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+
+            var request = HttpWebRequest.Create(GetUserSessionOperationPath);
             request.Headers[OAuthHelper.OAuthHeader] = OAuthHelper.GetAuthenticationHeader();
             request.Method = "POST";
             request.ContentLength = 0;
